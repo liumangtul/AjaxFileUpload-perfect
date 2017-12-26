@@ -66,3 +66,32 @@ jQuery.extend({
     }
 })
 ```
+
+## 调用
+```
+   $.ajaxFileUpload({
+            url: opt.ajax.url,
+            fileElementId:opt.fileElementId,
+            dataType:'json',
+            secureuri: false,
+            data: opt.ajax.data,
+            cache:false,
+            success:function (res,status) {
+                        if (res.status == 1){
+                                    var src = res.url;
+                                    var sid = res.id;
+                                    yan.fileload.dataToInput(opt, {url:src, id:sid});
+                                    layer.msg('上传成功');
+                        }else{
+                                    layer.msg('上传失败',{icon:5});
+                        }
+                        layer.close(opt.load);
+                        opt.ajax.succ && opt.ajax.succ(res,status);
+            },
+            error:function (err) {
+                        layer.msg('上传失败!!',{icon:5});
+                        layer.close(opt.load);
+                        opt.ajax.err && opt.ajax.err(err);
+            }
+});
+```
